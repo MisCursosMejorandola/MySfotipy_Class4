@@ -1,0 +1,334 @@
+/*
+	Para compilar el archivo de estylus abrimos el Terminal y vamos
+	a la carpeta del proyecto donde esta uvicada la carpeta que
+	contiene el archivo .styl
+
+		$ stylus -c -w -o css/ stylus/estilos.styl
+
+			-c	comprimir
+			-w	watch (compilacion automatica)
+			-o	setear uvicacion del .css
+
+	El comando css/ indica al compilador que cargue el archivo .styl de
+	la carpeta "stylus" y guarde el archivo resultante (.css) en la
+	carpeta llamada "css". Esto permite mantener el directorio en orden
+
+	====================================================================
+
+	Si se desea usar nib, la sintaxis sera la siguiente:
+
+		$ stylus -u nib -c -w -o css/ stylus/estilos.styl
+
+			-u	usar mixins
+			nib complemento de Stylus
+
+	====================================================================
+
+	nib, entre otras cosas, crea mixins de Stylus para generar
+	automaticamente las lineas de codigo compatibles con cada navegador
+
+	Ejemplo:
+	
+		Escribimos en el .styl	->	animation n
+			
+		Obtenemos en el .css	->	-webkit-animation n
+									-moz-animation n
+									-ms-animation n
+									-o-animation n
+									animation n
+			
+*/
+
+@import "normalize.styl"
+@import "fonts.styl"
+@import "nib"
+
+// Mixin de Stylus
+/*
+animacion(n)
+	-webkit-animation n
+	-moz-animation n
+	-ms-animation n
+	-o-animation n
+	animation n
+*/
+
+// Creacion de variables
+gris_claro = #818181
+gris_mas_claro = #F0F0F0
+gris_oscuro = #333333
+rojo = #BD255B
+
+body
+	font-family 'Varela Round', sans-serif
+	font-size 16px		// 1em = 16px
+	a
+		text-decoration none
+figure
+	margin 0
+img
+	vertical-align top
+ul
+	margin 0
+	padding 0
+// Buttons
+.button-menu
+	color gris_oscuro
+	left .5em
+	margin-left 11px
+	margin-top -8px
+	position absolute
+	top 50%
+// OOCSS classes
+.container
+	font-size 0
+	margin-top 1.4rem
+	text-align center
+.description
+	margin-left 1em
+	margin-right 1em
+.actions
+	//background rgba(0,0,0,.3)
+	background rgba(black,.3)
+	bottom 0
+	left 0
+	position absolute
+	right 0
+.action
+	color white
+	font-size 1.2em
+	margin-right .5em
+	// Pseudo-clase para el ultimo elemento
+	&:last-child
+		margin-right 0
+	&.gray
+		color gris_claro
+.border-bottom
+	border-bottom 1px solid gris_claro
+.menu
+	display none
+.relative
+	position relative
+.padding
+	padding 1em
+.padding-tb
+	padding 1em 0
+.left
+	float left
+.right
+	float right
+.wrap
+	width 1000px
+.round
+	border-radius 50%
+	overflow hidden
+.progress
+	margin 1em
+	position relative
+	.min
+	.max
+		font-size .8em
+		position absolute
+		top -5px
+	.min
+		left 0
+	.max
+		right 0
+	.total
+		background gris_claro
+		border-radius 5px
+		height 5px
+		margin 0 auto
+		width 75%
+	.state
+		background rojo
+		border-radius 5px
+		height 5px
+		position relative
+		width 30%
+		// Animacion barra reproduccion
+		animation 30s state infinite linear
+	.circle
+		background gris_oscuro
+		border-radius 50%
+		height 10px
+		position absolute
+		right 0
+		top -3px
+		width 10px
+		// Animacion punto barra reproduccion
+		animation 1s circle infinite
+.name
+	color gris_oscuro
+	margin-bottom 0
+.author
+	margin-top 5px
+	color gris_claro
+	font-size 14px
+.center-block
+	margin 0 auto
+.center-text
+	text-align center
+.right-text
+	text-align right
+.relative
+	position relative
+.header
+	height 3.5em
+	.title
+		font-size 1.1em
+		line-height 3.5em
+		margin 0
+		text-align center
+.song
+	display inline-block
+	font-size 1rem
+	margin-bottom 1em
+	margin-right 1em
+	text-align left
+	width 8rem
+	// Pseudo-clase para los elementos pares
+	&:nth-child(even)
+		margin-right 0
+	p
+		margin .5em 0
+.playing
+	&.small
+		margin 0 auto
+		width 20em
+.playlist
+	border-left 1px solid gris_claro
+	display none
+	padding 0 2em
+	width 22em
+	.list
+		list-style none
+	.item
+		padding 1em 0
+	.action
+		font-size 14px
+.isotipo
+	width 122px
+	position absolute
+.logo
+	background white
+	display none
+	// overflow hidden
+	clearfix()
+	padding 1.3em 0
+.avatar
+	height 38px
+	width 38px
+.user
+	padding-left 2em
+.username
+	color gris_claro
+	margin-left .5em
+	position relative
+	top 9px
+	// pseudo-elemento para triangulo
+	&:after
+		// siempre hay que colocar content
+		border-left 7px solid transparent
+		border-right 7px solid transparent
+		border-top 9px solid gris_claro
+		content ""
+		display inline-block
+		margin-left .4em
+
+
+// Animaciones con CSS
+@keyframes state
+	0%
+		width 0
+	100%
+		width 100%
+@keyframes circle
+	0%
+		transform scale(1)
+	100%
+		opacity 0
+		transform scale(2)
+
+
+// Media Query para Tablet
+@media screen and (min-width:480px)
+	.song
+		&:nth-child(even)
+			margin-right 1em
+	.image
+		img
+			height auto
+			width 100%
+	.playing
+		&.medium
+			width auto
+	.input
+		border 1px solid gris_claro
+		border-radius 5px
+		height 2.5em
+		padding 0 1em 0 2.2em
+	.search-icon
+		color gris_claro
+		left .7em
+		position absolute
+		top .8em
+	.close-icon
+		color gris_claro
+		font-size 1.2em
+		position absolute
+		right .5em
+		top .5em
+
+
+// Media Query para Desktop
+@media screen and (min-width:1000px)
+	body
+		background gris_mas_claro
+	.button-menu
+		display none
+	.playing
+		padding-top 1.3em
+		&.large
+			margin 0 auto
+			overflow hidden
+			width 62.5em
+	.menu
+		background gris_mas_claro
+		border-top 1px solid gris_claro
+		display block
+		overflow hidden
+		.item
+			float left
+			list-style none
+			a
+				border-top 5px solid transparent
+				color gris_oscuro
+				cursor pointer
+				display block
+				padding 1em
+				text-transform uppercase
+				transition .3s border-top
+				&:hover
+					border-top 5px solid gris_claro
+	.music
+		float left
+		width 32.5em
+		.description
+			display none
+	.header
+		border none
+		height auto
+		.title
+			display none
+	.logo
+	.playlist
+		display block
+
+
+
+
+
+
+
+
